@@ -18,10 +18,15 @@ import android.content.Intent;
 import android.os.SystemProperties;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
+
+    private static final String ANDROID_INTENT_ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals(ANDROID_INTENT_ACTION_BOOT_COMPLETED)) {
         if (!SystemProperties.getBoolean("ro.musicfx.disabled", false)) {
             context.startService(new Intent(context, SystemService.class));
+        }
         }
     }
 }
